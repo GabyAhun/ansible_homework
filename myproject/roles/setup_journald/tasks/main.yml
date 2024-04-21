@@ -1,0 +1,9 @@
+---
+- name: Set the journald to persistent mode
+  lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: "^Storage="
+    line: "Storage=persistent"
+  notify:
+    - Restart journald
+

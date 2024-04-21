@@ -1,0 +1,10 @@
+---
+- name: Get UUID of the new partition
+  command: blkid -o value -s UUID "{{ disk }}{{ part_number }}"
+  register: partition_uuid
+
+- name: Add entry into fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "UUID={{ partition_uuid.stdout }} {{ mountpoint }} ext4 defaults 0 2"
+

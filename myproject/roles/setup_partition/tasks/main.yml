@@ -1,0 +1,24 @@
+---
+- name: Create directory
+  file:
+    path: "{{ mountpoint }}"
+    state: directory
+  loop:
+    - /data
+    - /speci
+    - /dir
+
+- name: Create the new primary partition
+  parted:
+    device: "{{ disk }}"
+    number: "{{ part_number }}"
+    state: present
+    part_type: primary
+    label: gpt
+    part_end: "{{ part_size }}"
+
+- name: Create filesystem on partition
+  filesystem:
+    fstype: ext4
+    dev: "{{ disk }}{{ part_number }}"
+

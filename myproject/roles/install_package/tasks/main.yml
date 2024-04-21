@@ -1,0 +1,7 @@
+---
+- name: Install a custom package
+  become: yes
+  dnf:
+    name: "{{ package }}"
+    state: present
+

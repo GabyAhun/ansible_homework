@@ -1,0 +1,17 @@
+---
+- name: PLaybook of my Ansible Project
+  hosts: all
+  become: yes
+  vars_files:
+    - my_vars.yml
+  roles:
+    - install_package
+    - setup_journald
+    - setup_partition
+    - modify_fstab
+  handlers:
+    - name: Restart journald
+      service:
+        name: systemd-journald
+        state: restarted
+

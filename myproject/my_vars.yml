@@ -1,0 +1,10 @@
+---
+# Variables for installing a custom package
+package: "httpd"
+
+# Variables for partititon creation and mounting
+disk: "/dev/sdb"
+part_number: 1
+mountpoint: "/data/speci/dir"
+part_size: "100MiB"
+
