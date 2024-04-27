@@ -1,4 +1,9 @@
 ---
+- name: Install parted
+  package:
+    name: parted
+    state: present
+
 - name: Create directory
   file:
     path: "{{ mountpoint }}"
@@ -8,6 +13,12 @@
     - /speci
     - /dir
 
+- name: Read device information about the disk
+  parted:
+    device: "{{ disk }}"
+    unit: MiB
+  register: disk_info
+
 - name: Create the new primary partition
   parted:
     device: "{{ disk }}"
@@ -15,7 +26,9 @@
     state: present
     part_type: primary
     label: gpt
-    part_end: "{{ part_size }}"
+    unit: MiB
+    part_start: "{{ disk_info.partitions[-1].end + 1 }}MiB"
+    part_end: "{{disk_info.partitions[-1].end + part_size }}MiB"
 
 - name: Create filesystem on partition
   filesystem:
