@@ -4,7 +4,9 @@ package: "httpd"
 
 # Variables for partititon creation and mounting
 disk: "/dev/sdb"
-part_number: 1
+part_number: 3
 mountpoint: "/data/speci/dir"
-part_size: "100MiB"
+
+# Part size in MiB
+part_size: 100
 
